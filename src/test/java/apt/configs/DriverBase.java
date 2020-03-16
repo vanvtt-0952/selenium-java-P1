@@ -15,7 +15,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Listeners;
 
+import apt.listeners.ScreenshotListener;
+
+@Listeners(ScreenshotListener.class)
 public class DriverBase {
 
 	private static final Logger LOGGER = Logger.getLogger(DriverBase.class);
