@@ -1,0 +1,162 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.sun.veu</groupId>
+	<artifactId>selenium-with-maven-surefire</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<properties>
+		<java.version>11</java.version>
+		<maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+		<javassist.version>3.23.1-GA</javassist.version>
+		<selenium.version>3.141.59</selenium.version>
+		<log4j.version>1.2.17</log4j.version>
+
+		<!--Configuration Properties to open browser -->
+		<project.basedir>
+			/home/tranvan/training/selenium/workspace
+		</project.basedir>
+		<overwrite.binaries>false</overwrite.binaries>
+		<read.timeout>30000</read.timeout>
+		<connection.timeout>40000</connection.timeout>
+		<retry.attempts>4</retry.attempts>
+		<browser>chrome</browser>
+		<threads>1</threads>
+		<remote>false</remote>
+		<headless>true</headless>
+		<seleniumGridURL />
+		<platform />
+		<browserVersion />
+		<proxyEnabled>false</proxyEnabled>
+		<proxyHost />
+		<proxyPort />
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>${selenium.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-remote-driver</artifactId>
+			<version>${selenium.version}</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-firefox-driver</artifactId>
+			<version>${selenium.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-support</artifactId>
+			<version>${selenium.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>7.1.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>${javassist.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.maven.surefire</groupId>
+			<artifactId>surefire-junit47</artifactId>
+			<version>2.22.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven.surefire</groupId>
+			<artifactId>surefire-testng</artifactId>
+			<version>2.22.1</version>
+		</dependency>
+
+		<!-- // write logger -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+
+	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>selenium-tests</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<configuration>
+							<source>${java.version}</source>
+							<target>${java.version}</target>
+							<release>${java.version}</release>
+						</configuration>
+						<version>${maven-compiler-plugin.version}</version>
+					</plugin>
+					<plugin>
+						<!-- is designed for running unit tests and if any of the tests fail 
+							then it will fail the build immediately. -->
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>2.22.1</version>
+						<configuration>
+							<argLine>
+								--illegal-access=permit
+							</argLine>
+							<property>
+								<name>listener</name>
+								<value>com.sun.veu.*</value>
+							</property>
+							<property>
+								<name>reporter</name>
+								<value>listenReport.Reporter</value>
+							</property>
+							<threadCount>10</threadCount>
+						</configuration>
+					</plugin>
+					<plugin>
+						<!-- is designed for running integration tests, and decouples failing 
+							the build if there are test failures from actually running the tests. -->
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<version>2.22.1</version>
+						<configuration>
+							<argLine>
+								<!-- to allow all reflection access for third party libraries -->
+								--illegal-access=permit
+							</argLine>
+							<property>
+								<name>reporter</name>
+								<value>listenReport.Reporter</value>
+							</property>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+</project>
