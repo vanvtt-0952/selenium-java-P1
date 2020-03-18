@@ -21,23 +21,6 @@
 		<project.basedir>
 			/home/tranvan/training/selenium/workspace
 		</project.basedir>
-		<overwrite.binaries>false</overwrite.binaries>
-		<read.timeout>30000</read.timeout>
-		<connection.timeout>40000</connection.timeout>
-		<retry.attempts>4</retry.attempts>
-		<browser>chrome</browser>
-		<threads>1</threads>
-		<remote>false</remote>
-		<headless>true</headless>
-		<seleniumGridURL />
-		<platform />
-		<browserVersion />
-		<proxyEnabled>false</proxyEnabled>
-		<proxyHost />
-		<proxyPort />
-
-		<webdriver.gecko.driver>/home/tranvan/training/selenium/Driver/geckodriver</webdriver.gecko.driver>
-		<webdriver.chrome.driver>/home/tranvan/training/selenium/Driver/chromedriver</webdriver.chrome.driver>
 	</properties>
 
 	<dependencies>
@@ -117,6 +100,14 @@
 			<version>${extentreports.version}</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.18</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<profiles>
@@ -148,10 +139,6 @@
 								--illegal-access=permit
 							</argLine>
 							<property>
-								<name>listener</name>
-								<value>com.sun.veu.*</value>
-							</property>
-							<property>
 								<name>reporter</name>
 								<value>listenReport.Reporter</value>
 							</property>
@@ -160,22 +147,8 @@
 
 							<configuration>
 								<parallel>methods</parallel>
-								<threadCount>${threads}</threadCount>
 								<systemPropertyVariables>
-									<browser>${browser}</browser>
 									<screenshotDirectory>${project.build.directory}/screenshots</screenshotDirectory>
-									<remoteDriver>${remote}</remoteDriver>
-									<gridURL>${seleniumGridURL}</gridURL>
-									<desiredPlatform>${platform}</desiredPlatform>
-									<desiredBrowserVersion>${browserVersion}</desiredBrowserVersion>
-									<proxyEnabled>${proxyEnabled}</proxyEnabled>
-									<proxyHost>${proxyHost}</proxyHost>
-									<proxyPort>${proxyPort}</proxyPort>
-									<headless>${headless}</headless>
-
-									<!--Set properties passed in by the driver binary downloader -->
-									<webdriver.chrome.driver>${webdriver.chrome.driver}</webdriver.chrome.driver>
-									<webdriver.gecko.driver>${webdriver.gecko.driver}</webdriver.gecko.driver>
 								</systemPropertyVariables>
 							</configuration>
 
