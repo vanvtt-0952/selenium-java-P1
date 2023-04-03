@@ -13,7 +13,7 @@ public enum DriverType implements DriverSetup {
 
 	FIREFOX {
 		public RemoteWebDriver getWebDriverObject(DesiredCapabilities capabilities) {
-			System.setProperty("webdriver.gecko.driver", "/home/tranvan/training/selenium/Driver/geckodriver");
+			System.setProperty("webdriver.gecko.driver", "/home/vu.thi.tran.van/vanvtt-0952/Trainings/automation/Java-language/driver/geckodriver");
 			FirefoxOptions options = new FirefoxOptions();
 			options.merge(capabilities);
 			options.setHeadless(HEADLESS);
@@ -22,7 +22,7 @@ public enum DriverType implements DriverSetup {
 	},
 	CHROME {
 		public RemoteWebDriver getWebDriverObject(DesiredCapabilities capabilities) {
-			System.setProperty("webdriver.chrome.driver", "/home/tranvan/training/selenium/Driver/chromedriver");
+			System.setProperty("webdriver.chrome.driver", "/home/vu.thi.tran.van/vanvtt-0952/Trainings/automation/Java-language/driver/chromedriver");
 			HashMap<String, Object> chromePreferences = new HashMap<>();
 			chromePreferences.put("profile.password_manager_enabled", false);
 

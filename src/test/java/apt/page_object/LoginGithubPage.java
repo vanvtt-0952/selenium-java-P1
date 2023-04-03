@@ -1,5 +1,6 @@
 package apt.page_object;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -15,7 +16,7 @@ public class LoginGithubPage {
 	@FindBy(how = How.LINK_TEXT, using = "Sign in")
 	private WebElement btnSinginPage;
 
-	@FindBy(how = How.XPATH, using = "/html/body/div[3]/main/div/form/div[1]/h1")
+	@FindBy(how = How.CLASS_NAME, using = "auth-form-header")
 	private WebElement titleForm;
 
 	@FindBy(id = "login_field")
@@ -24,13 +25,13 @@ public class LoginGithubPage {
 	@FindBy(id = "password")
 	private WebElement txtPassword;
 
-	@FindBy(how = How.XPATH, using = "/html/body/div[3]/main/div/form/div[4]/input[9]")
+	@FindBy(how = How.NAME, using = "commit")
 	private WebElement btnSingin;
 
-	@FindBy(how = How.XPATH, using = "/html/body/div[1]/header/div[7]")
+	@FindBy(how = How.XPATH, using = "//*[@class='avatar avatar-small circle']")
 	private WebElement btnAvatar;
 
-	@FindBy(how = How.XPATH, using = "/html/body/div[1]/header/div[7]/details/details-menu/div[1]/a/strong")
+	@FindBy(how = How.CLASS_NAME, using = "user-profile-link")
 	private WebElement labelAccount;
 
 	private WebDriver driver;
@@ -38,6 +39,7 @@ public class LoginGithubPage {
 	public LoginGithubPage() throws Exception {
 		this.driver = DriverBase.getDriver();
 		driver.get(urlPage); // Initialise Elements
+		driver.manage().window().maximize(); // full screen
 		PageFactory.initElements(driver, this);
 	}
 
@@ -68,7 +70,7 @@ public class LoginGithubPage {
 	}
 
 	public boolean checkAccount() {
-		return labelAccount.getText().toString().contains("vanvtt");
+		return labelAccount.getText().toString().contains("vanvtt-soft");
 	}
 
 }
